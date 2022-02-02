@@ -5,9 +5,11 @@ import {IProduct} from "../../../interfaces/interface.Product";
 interface Props {
     item : IProduct
     onDelete(id : number) : void
+    addQty(id : number) : void
+    subQty(id : number) : void
 }
 
-function CartItem ({item,onDelete} : Props) {
+function CartItem ({item,onDelete,addQty,subQty} : Props) {
 
     return(
         <Container>
@@ -21,9 +23,9 @@ function CartItem ({item,onDelete} : Props) {
                 {item.price} 원
             </Price>
             <Buttons>
-                <Add>+</Add>
+                <Add onClick={() => addQty(item.id)}>+</Add>
                 <Qty>{item.qty}</Qty>
-                <Sub>-</Sub>
+                <Sub onClick={() => subQty(item.id)}>-</Sub>
             </Buttons>
         </Container>
     )
