@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import Nav from "./Nav";
+import {useRecoilValue} from "recoil";
+import {cartState} from "../../../atoms/cartAtom";
 
 function Header () {
+
+    const productQty = useRecoilValue(cartState)
+    const qty = productQty.length
     return(
         <Container>
             <Logo>logo</Logo>
-            <Nav/>
+            <Nav qty={qty}/>
         </Container>
     )
 };

@@ -73,6 +73,12 @@ const AddCart = styled.div`
   align-items: center;
   justify-content: center;
   flex-shrink: 1;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: #cbcbcb;
+    color: #fff;
+  }
 `;
 
 export default ProductItem;

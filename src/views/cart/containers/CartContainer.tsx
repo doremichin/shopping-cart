@@ -10,7 +10,6 @@ import {IProduct} from "../../../interfaces/interface.Product";
 function CartContainer () {
 
     const [cartData, setCartData] = useRecoilState(cartState);
-    console.log(cartData)
     const handleDelete = (id : number) => {
         const newData = cartData.filter((item) => item.id !== id);
         setCartData(newData)
