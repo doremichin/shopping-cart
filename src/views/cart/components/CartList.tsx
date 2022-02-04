@@ -27,7 +27,7 @@ const Container = styled.div`
 `;
 const Col = styled.div`
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 500px;
 `;
 
 export default CartList;

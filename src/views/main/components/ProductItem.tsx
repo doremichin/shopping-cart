@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {IProduct} from "../../../interfaces/interface.Product";
+import {useNavigate} from "react-router-dom";
 
 interface Props {
     item : IProduct
@@ -9,9 +10,11 @@ interface Props {
 
 function ProductItem ({item,addCart} : Props) {
 
+    const navigate = useNavigate();
+
     return(
-        <Container>
-            <Thumb>
+        <Container >
+            <Thumb onClick={() => navigate(`/detail/${item.id}`)}>
                 <Image>
                     <img src={item.thumb} alt=""/>
                 </Image>
@@ -41,6 +44,7 @@ const Container = styled.div`
 `;
 const Thumb = styled.div`
   margin-right: 30px;
+  cursor: pointer;
 `;
 const Image = styled.div`
   margin-right: 20px;
