@@ -9,17 +9,17 @@ import {cartState} from "../../../atoms/cartAtom";
 
 function MainContainer () {
 
-    const [cart, setCart] = useRecoilState(cartState)
+    const [cartData, setCartData] = useRecoilState(cartState)
 
     const productData  : IProduct[] = ProductData;
 
-    const addCart = (item : IProduct) => {
+    const addInCart = (item : IProduct) => {
         const id = item.id
-        const index = cart.findIndex((data) => data.id === id)
+        const index = cartData.findIndex((data) => data.id === id)
         //요소가 없으면 -1, 있으면 0 이상
         if(index === -1) {
-            setCart([
-                ...cart,
+            setCartData([
+                ...cartData,
                 {
                     ...item,
                     qty : 1
@@ -31,7 +31,7 @@ function MainContainer () {
     return(
         <Container>
             <ProductList data={productData}>
-                {(item, index) => <ProductItem item={item} key={item.id || index} addCart={addCart}/>}
+                {(item, index) => <ProductItem item={item} key={item.id || index} addInCart={addInCart}/>}
             </ProductList>
         </Container>
     )

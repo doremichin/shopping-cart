@@ -6,12 +6,12 @@ import {cartState} from "../../../atoms/cartAtom";
 
 function Header () {
 
-    const productQty = useRecoilValue(cartState)
-    const qty = productQty.length
+    const cartData = useRecoilValue(cartState)
+    const qtyInCart = cartData.length
     return(
         <Container>
             <Logo>logo</Logo>
-            <Nav qty={qty}/>
+            <Nav qtyInCart={qtyInCart}/>
         </Container>
     )
 };

@@ -6,14 +6,14 @@ import CountProduct from "../../shared/Utills/CountProduct";
 
 interface Props {
     item : IProduct
-    onDelete(id : number) : void
+    deleteInCart(id : number) : void
 }
 
-function CartItem ({item,onDelete} : Props) {
+function CartItem ({item,deleteInCart} : Props) {
 
     return(
         <Container>
-            <Cancel onClick={() => onDelete(item.id)}>
+            <Cancel onClick={() => deleteInCart(item.id)}>
                 <AiOutlineDelete/>
             </Cancel>
             <Thumb>

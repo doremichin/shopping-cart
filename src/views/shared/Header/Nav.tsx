@@ -4,14 +4,14 @@ import {Link} from "react-router-dom";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 interface Props {
-    qty : number
+    qtyInCart : number
 }
 
-function Nav ({qty} : Props) {
+function Nav ({qtyInCart} : Props) {
     return(
         <Container>
             <NavItem to={'/'}>home</NavItem>
-            <CartNavItem to={'/cart'} qty={qty}>
+            <CartNavItem to={'/cart'} qtyInCart={qtyInCart}>
                 <Icon>
                     <AiOutlineShoppingCart/>
                 </Icon>
@@ -35,8 +35,8 @@ export const NavItemStyle = styled(Link)`
 const NavItem = styled(NavItemStyle)`
     
 `;
-const CartNavItem = styled(NavItemStyle)<{qty : number}>`
-  ${(props) => (props?.qty > 0 ? css`
+const CartNavItem = styled(NavItemStyle)<{qtyInCart : number}>`
+  ${(props) => (props?.qtyInCart > 0 ? css`
     &::after{
       content: '';
       position: absolute;
