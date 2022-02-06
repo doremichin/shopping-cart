@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import {cartState} from "../../../atoms/cartAtom";
 import CartItem from '../components/CartItem';
 import CartList from "../components/CartList";
-import TotalValue from "../components/TotalValue";
+import TotalAmount from "../components/TotalAmount";
 
 
 function CartContainer () {
 
     const [cartData, setCartData] = useRecoilState(cartState);
-    const handleDelete = (id : number) => {
+
+    const deleteInCart = (id : number) => {
         const newData = cartData.filter((item) => item.id !== id);
         setCartData(newData)
     }
@@ -19,10 +20,10 @@ function CartContainer () {
         <Container>
             <CartList data={cartData}>
                 {(item) => (
-                    <CartItem key={item.id} item={item} onDelete={handleDelete} />
+                    <CartItem key={item.id} item={item} deleteInCart={deleteInCart} />
                 )}
             </CartList>
-            <TotalValue data={cartData}/>
+            <TotalAmount data={cartData}/>
         </Container>
     )
 };

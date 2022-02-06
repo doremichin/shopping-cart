@@ -5,10 +5,10 @@ import {useNavigate} from "react-router-dom";
 
 interface Props {
     item : IProduct
-    addCart(item : IProduct ) : void
+    addInCart(item : IProduct ) : void
 }
 
-function ProductItem ({item,addCart} : Props) {
+function ProductItem ({item,addInCart} : Props) {
 
     const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ function ProductItem ({item,addCart} : Props) {
                     {item.price.toLocaleString()}원
                 </Price>
             </Desc>
-            <AddCart onClick={() => addCart(item)}>
+            <AddCart onClick={() => addInCart(item)}>
                 +
             </AddCart>
         </Container>
