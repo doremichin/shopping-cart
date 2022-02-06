@@ -2,18 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import {IProduct} from "../../../interfaces/interface.Product";
 
-interface Pros {
+interface Props {
     data : IProduct[]
 }
 
-function TotalValue ({data} : Pros) {
-    let totalPrice = 0;
-    let totalQty = 0;
-    data.map((item) => {
-        const sum = item.price * item.qty
-        totalPrice += sum
-        totalQty += item.qty
-    })
+function TotalAmount ({data} : Props) {
+
+    const { totalQty, totalPrice } = calculateTotalAmount()
+
+    function calculateTotalAmount () {
+        let totalPrice = 0;
+        let totalQty = 0;
+
+        data.map((item) => {
+            const sum = item.price * item.qty
+            totalPrice += sum
+            totalQty += item.qty
+        })
+        return {
+            totalPrice,
+            totalQty
+        }
+    }
 
     return(
         <Container>
@@ -41,4 +51,4 @@ const Qty = styled.div`
   
 `;
 
-export default TotalValue;
+export default TotalAmount;
