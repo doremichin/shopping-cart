@@ -1,24 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import {IProduct} from "../../../interfaces/interface.Product";
-import {useCountQty} from "../../../hooks/useCountQty";
+
+import { IProduct } from '../../../interfaces/interface.Product';
+import { useCountQty } from '../../../hooks/useCountQty';
 
 interface Props {
     item : IProduct
 
 }
-function CountProduct ({item} : Props) {
+function CountProduct({ item } : Props) {
+  const countQty = useCountQty();
 
-    const countQty = useCountQty();
-
-    return(
-        <Container>
-            <Add onClick={() => countQty(item.id,'add')}>+</Add>
-            <Qty>{item.qty}</Qty>
-            <Sub onClick={() => countQty(item.id,'sub')}>-</Sub>
-        </Container>
-    )
-};
+  return (
+    <Container>
+      <Add onClick={() => countQty(item.id, 'add')}>+</Add>
+      <Qty>{item.qty}</Qty>
+      <Sub onClick={() => countQty(item.id, 'sub')}>-</Sub>
+    </Container>
+  );
+}
 
 const Container = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ export const Button = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-`
+`;
 const Add = styled(Button)`
   
 `;

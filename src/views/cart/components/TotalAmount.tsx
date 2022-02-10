@@ -1,41 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
-import {IProduct} from "../../../interfaces/interface.Product";
+
+import { IProduct } from '../../../interfaces/interface.Product';
 
 interface Props {
     data : IProduct[]
 }
 
-function TotalAmount ({data} : Props) {
+function TotalAmount({ data } : Props) {
+  function calculateTotalAmount() {
+    let totalPrice = 0;
+    let totalQty = 0;
 
-    const { totalQty, totalPrice } = calculateTotalAmount()
+    data.map((item) => {
+      const sum = item.price * item.qty;
+      totalPrice += sum;
+      totalQty += item.qty;
+      return item;
+    });
+    return {
+      totalPrice,
+      totalQty,
+    };
+  }
 
-    function calculateTotalAmount () {
-        let totalPrice = 0;
-        let totalQty = 0;
+  const { totalQty, totalPrice } = calculateTotalAmount();
 
-        data.map((item) => {
-            const sum = item.price * item.qty
-            totalPrice += sum
-            totalQty += item.qty
-        })
-        return {
-            totalPrice,
-            totalQty
-        }
-    }
-
-    return(
-        <Container>
-            <Price>
-                가격 : {totalPrice} 원
-            </Price>
-            <Qty>
-                총계 : {totalQty} 개
-            </Qty>
-        </Container>
-    )
-};
+  return (
+    <Container>
+      <Price>
+        가격 :
+        {' '}
+        {totalPrice}
+        {' '}
+        원
+      </Price>
+      <Qty>
+        총계 :
+        {' '}
+        {totalQty}
+        {' '}
+        개
+      </Qty>
+    </Container>
+  );
+}
 
 const Container = styled.div`
   max-width: 400px;

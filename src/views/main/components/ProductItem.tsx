@@ -1,64 +1,65 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {IProduct} from "../../../interfaces/interface.Product";
-import {useNavigate} from "react-router-dom";
+
+import { useNavigate } from 'react-router-dom';
 import Rating from '@mui/material/Rating/Rating';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Paper from '@mui/material/Paper';
 
+import { IProduct } from '../../../interfaces/interface.Product';
 
 interface Props {
     item : IProduct
-    addInCart(item : IProduct ) : void
+    addInCart(item : IProduct) : void
 }
 
-function ProductItem ({item,addInCart} : Props) {
+function ProductItem({ item, addInCart } : Props) {
+  const navigate = useNavigate();
+  const [value, setValue] = useState(item.rating);
 
-    const navigate = useNavigate();
-    const [value, setValue] = useState(item.rating);
-
-    return(
-        <Paper elevation={3}>
-            <Container>
-            <Thumb onClick={() => navigate(`/detail/${item.id}`)}>
-                <Image>
-                    <img src={item.thumb} alt=""/>
-                </Image>
-            </Thumb>
-            {/*<Rating name="read-only" value={value} readOnly precision={0.5}/>*/}
-            <StyledRating
-                readOnly
-                name="customized-color"
-                value={value}
-                precision={0.5}
-                icon={<FavoriteIcon fontSize="small" />}
-                emptyIcon={<FavoriteBorderIcon fontSize="small" />}
-                sx={{marginBottom : '10px'}}
-            />
-            <Desc>
-                <Title>
-                    {item.title}
-                </Title>
-                <Price>
-                    {item.price.toLocaleString()}원
-                </Price>
-            </Desc>
-            <AddCart onClick={() => addInCart(item)}>
-                <AddShoppingCartIcon sx={{fontSize : '20px'}}/>
-            </AddCart>
-            </Container>
-        </Paper>
-    )
-};
+  return (
+    <Paper elevation={3}>
+      <Container>
+        <Thumb onClick={() => navigate(`/detail/${item.id}`)}>
+          <Image>
+            <img src={item.thumb} alt="" />
+          </Image>
+        </Thumb>
+        {/* <Rating name="read-only" value={value} readOnly precision={0.5}/> */}
+        <StyledRating
+          readOnly
+          name="customized-color"
+          value={value}
+          precision={0.5}
+          icon={<FavoriteIcon fontSize="small" />}
+          emptyIcon={<FavoriteBorderIcon fontSize="small" />}
+          sx={{ marginBottom: '10px' }}
+        />
+        <Desc>
+          <Title>
+            {item.title}
+          </Title>
+          <Price>
+            {item.price.toLocaleString()}
+            원
+          </Price>
+        </Desc>
+        <AddCart onClick={() => addInCart(item)}>
+          <AddShoppingCartIcon sx={{ fontSize: '20px' }} />
+        </AddCart>
+      </Container>
+    </Paper>
+  );
+}
 const StyledRating = styled(Rating)({
-    '& .MuiRating-iconFilled': {
-        color: '#ff6d75',
-    },
-    '& .MuiRating-iconHover': {
-        color: '#ff3d47',
-    },
+  '& .MuiRating-iconFilled': {
+    color: '#ff6d75',
+  },
+  '& .MuiRating-iconHover': {
+    color: '#ff3d47',
+  },
 });
 const Container = styled.div`
   display: flex;

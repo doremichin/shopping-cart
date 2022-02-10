@@ -1,36 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
-import {IProduct} from "../../../interfaces/interface.Product";
+
 import { AiOutlineDelete } from 'react-icons/ai';
-import CountProduct from "../../shared/Utills/CountProduct";
+
+import { IProduct } from '../../../interfaces/interface.Product';
+import CountProduct from '../../shared/Utills/CountProduct';
 
 interface Props {
     item : IProduct
     deleteInCart(id : number) : void
 }
 
-function CartItem ({item,deleteInCart} : Props) {
+function CartItem({ item, deleteInCart } : Props) {
+  return (
+    <Container>
+      <Cancel onClick={() => deleteInCart(item.id)}>
+        <AiOutlineDelete />
+      </Cancel>
+      <Thumb>
+        <img src={item.thumb} alt="" />
+      </Thumb>
+      <Title>
+        {item.title}
+      </Title>
+      <Price>
+        {item.price}
+        {' '}
+        원
+      </Price>
 
-    return(
-        <Container>
-            <Cancel onClick={() => deleteInCart(item.id)}>
-                <AiOutlineDelete/>
-            </Cancel>
-            <Thumb>
-                <img src={item.thumb} alt=""/>
-            </Thumb>
-            <Title>
-                {item.title}
-            </Title>
-            <Price>
-                {item.price} 원
-            </Price>
+      <CountProduct item={item} />
 
-            <CountProduct item={item}/>
-
-        </Container>
-    )
-};
+    </Container>
+  );
+}
 
 const Container = styled.div`
   padding: 15px;
@@ -64,8 +67,5 @@ const Buttons = styled.div`
   display: flex;
   align-items: center;
 `;
-
-
-
 
 export default CartItem;

@@ -1,24 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import {IProduct} from "../../../interfaces/interface.Product";
-import ProductItem from "./ProductItem";
+
+import { IProduct } from '../../../interfaces/interface.Product';
 
 interface Props {
     data : IProduct[]
     children(item : IProduct, index : number) : JSX.Element
 }
 
-function ProductList ({children,data} : Props) {
-    return(
-        <Container>
-            <Row>
-                {
-                    data.map((item, index) => <Col key={item.id}>{children(item,index)}</Col> )
-                }
-            </Row>
-        </Container>
-    )
-};
+function ProductList({ children, data } : Props) {
+  return (
+    <Container>
+      <Row>
+        {
+          data.map((item, index) => <Col key={item.id}>{children(item, index)}</Col>)
+        }
+      </Row>
+    </Container>
+  );
+}
 
 const Container = styled.div`
     padding: 0 20px;
