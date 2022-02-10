@@ -11,20 +11,26 @@ interface Props {
 function ProductList ({children,data} : Props) {
     return(
         <Container>
-            <Col>
+            <Row>
                 {
-                    data.map((item, index) => children(item,index))
+                    data.map((item, index) => <Col>{children(item,index)}</Col> )
                 }
-            </Col>
+            </Row>
         </Container>
     )
 };
 
 const Container = styled.div`
+    padding: 0 20px;
+`;
 
+const Row = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
 `;
 const Col = styled.div`
-  max-width: 600px;
-  margin: 0 auto;
+  padding: 0 10px;
+  width: 25%;
 `;
 export default ProductList;
