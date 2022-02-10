@@ -6,6 +6,9 @@ import Rating from '@mui/material/Rating/Rating';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Paper from '@mui/material/Paper';
+
+
 interface Props {
     item : IProduct
     addInCart(item : IProduct ) : void
@@ -15,16 +18,10 @@ function ProductItem ({item,addInCart} : Props) {
 
     const navigate = useNavigate();
     const [value, setValue] = useState(item.rating);
-    const StyledRating = styled(Rating)({
-        '& .MuiRating-iconFilled': {
-            color: '#ff6d75',
-        },
-        '& .MuiRating-iconHover': {
-            color: '#ff3d47',
-        },
-    });
+
     return(
-        <Container >
+        <Paper elevation={3}>
+            <Container>
             <Thumb onClick={() => navigate(`/detail/${item.id}`)}>
                 <Image>
                     <img src={item.thumb} alt=""/>
@@ -51,10 +48,18 @@ function ProductItem ({item,addInCart} : Props) {
             <AddCart onClick={() => addInCart(item)}>
                 <AddShoppingCartIcon sx={{fontSize : '20px'}}/>
             </AddCart>
-        </Container>
+            </Container>
+        </Paper>
     )
 };
-
+const StyledRating = styled(Rating)({
+    '& .MuiRating-iconFilled': {
+        color: '#ff6d75',
+    },
+    '& .MuiRating-iconHover': {
+        color: '#ff3d47',
+    },
+});
 const Container = styled.div`
   display: flex;
   flex-direction: column;
