@@ -13,7 +13,7 @@ function ProductList ({children,data} : Props) {
         <Container>
             <Row>
                 {
-                    data.map((item, index) => <Col>{children(item,index)}</Col> )
+                    data.map((item, index) => <Col key={item.id}>{children(item,index)}</Col> )
                 }
             </Row>
         </Container>
