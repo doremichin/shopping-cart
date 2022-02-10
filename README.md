@@ -17,8 +17,8 @@ export const ProductData = [
         title : '신라면',
         price : 1000,
         thumb : 'http://img.danawa.com/prod_img/500000/839/239/img/1239839_1.jpg?shrink=330:330&_v=20210914125715',
-        qty :0
-
+        qty :0,
+        rating : 4
     },
     ...
 ]
@@ -61,32 +61,45 @@ function MainContainer () {
 
 ### CartPage - 장바구니
 ```typescript
+//CartContainer.tsx
 function CartContainer () {
     //atom 상태를 가져온다
     const [cartData, setCartData] = useRecoilState(cartState);
-    
+
     //장바구니에서 상품 삭제하는 로직
-    const handleDelete = (id : number) => {
+    const handleDelete = (id: number) => {
         //상품의 고유 id를 활용
         const newData = cartData.filter((item) => item.id !== id);
         setCartData(newData)
     }
+    ...
+}
+
+--------------------------------------------------------------
     
-    //장바구니에 담긴 상품의 갯수를 늘리는 로직
-    const addQty = (id : number) => {
+//useCountQty.ts
+//id, type을 받아서 id가 일치하는 데이터의 값을 뺄지 더할지 결정함
+export const useCountQty = () => {
+    const [cartData, setCartData] = useRecoilState(cartState);
+
+    const countQty = (id : number , type : string) => {
         //깊은 복사를 해서 배열 속 객체의 값을 바꿔준다.
         const newData : IProduct[] = JSON.parse(JSON.stringify(cartData))
         const index = newData.findIndex((item) => item.id===id)
-        newData[index].qty += 1
-        setCartData(newData);
+        switch (type) {
+            case 'add' :
+                newData[index].qty += 1
+                setCartData(newData);
+                break
+            case 'sub' :
+                //1개 이하로 안내려가게 막음
+                if(newData[index].qty === 1) break;
+                newData[index].qty -= 1
+                setCartData(newData);
+                break
+            default : return;
+        }
     }
-    
-    //상품의 갯수를 줄이는 로직
-    const subQty = (id : number) => {
-        const newData : IProduct[] = JSON.parse(JSON.stringify(cartData))
-        const index = newData.findIndex((item) => item.id===id)
-        if(newData[index].qty === 1) return;
-        newData[index].qty -= 1
-        setCartData(newData);
-    }
+    return countQty;
+}
 ```
