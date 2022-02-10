@@ -36,6 +36,8 @@ function ProductItem ({item,addInCart} : Props) {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   border-radius: 6px;
   box-shadow:  1px 1px 8px #eee;
@@ -43,12 +45,13 @@ const Container = styled.div`
   margin-bottom: 30px;
 `;
 const Thumb = styled.div`
-  margin-right: 30px;
   cursor: pointer;
+  margin-bottom: 20px;
 `;
 const Image = styled.div`
-  margin-right: 20px;
   width: 120px;
+  display: flex;
+  justify-content: center;
   img{
     width: 100%;
   }
@@ -57,14 +60,15 @@ const Desc = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
 `;
-const Title = styled.div`
+const Title = styled.span`
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 20px;
 `;
-const Price = styled.div`
+const Price = styled.span`
   
 `;
 const AddCart = styled.div`
