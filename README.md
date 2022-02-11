@@ -5,6 +5,7 @@
 - CRA typescript
 - Recoil
 - MUI
+- OAuth/react-google-login
 
 ### mock data, atom
 ```typescript
