@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
@@ -14,8 +14,14 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { cartState } from '../../../atoms/cartAtom';
+import { authCheckerAtom } from '../../../atoms/authAtom';
+import SignIn from './sign/SignIn';
+import SignOut from './sign/SignOut';
+import Profile from './profile/Profile';
 
 function Header() {
+  const [authCheck, setAuthCheck] = useRecoilState(authCheckerAtom);
+
   const navigate = useNavigate();
   const cartData = useRecoilValue(cartState);
   const qtyInCart = cartData.length;
@@ -45,7 +51,12 @@ function Header() {
             >
               Cart-App
             </Typography>
-            <Button color="inherit">Login</Button>
+            {
+              authCheck && <Profile />
+            }
+            {
+              authCheck ? <SignOut /> : <SignIn />
+            }
             <Button color="inherit" onClick={() => handleNavigator('/')}>Home</Button>
             <Button color="inherit" onClick={() => handleNavigator('/cart')}>
               <Badge badgeContent={qtyInCart} color="secondary">

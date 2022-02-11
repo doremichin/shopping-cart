@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { useRecoilState } from 'recoil';
@@ -28,6 +28,8 @@ function MainContainer() {
       ]);
     }
   };
+  useEffect(() => {
+  }, []);
 
   return (
     <Container>
