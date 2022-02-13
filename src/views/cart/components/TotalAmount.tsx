@@ -31,7 +31,7 @@ function TotalAmount({ data } : Props) {
       <Price>
         가격 :
         {' '}
-        {totalPrice}
+        {totalPrice.toLocaleString()}
         {' '}
         원
       </Price>

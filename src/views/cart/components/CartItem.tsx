@@ -24,7 +24,7 @@ function CartItem({ item, deleteInCart } : Props) {
         {item.title}
       </Title>
       <Price>
-        {item.price}
+        {item.price.toLocaleString()}
         {' '}
         원
       </Price>
