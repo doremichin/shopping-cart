@@ -1,3 +1,5 @@
+import { IProduct } from './interface.Product';
+
 export interface IAuthData {
     email : string
     familyName : string
@@ -5,4 +7,5 @@ export interface IAuthData {
     googleId : string
     imageUrl : string
     name : string
+    cart? : IProduct[];
 }

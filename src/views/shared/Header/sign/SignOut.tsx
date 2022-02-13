@@ -14,6 +14,7 @@ function SignOut() {
   const onLogoutSuccess = () => {
     setAuthCheck(false);
     resetAuthData();
+    sessionStorage.removeItem('profile');
   };
   const { signOut, loaded } = useGoogleLogout({
     clientId: '896627521201-rdfc3vn6jqjq858ac6qo904oiaa9oiqc.apps.googleusercontent.com',
