@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { ProductData } from '../../../ProductData';
 import { IProduct } from '../../../interfaces/interface.Product';
 import ProductList from '../components/ProductList';
 import ProductItem from '../components/ProductItem';
 import { cartState } from '../../../atoms/cartAtom';
+import { authCheckerAtom } from '../../../atoms/authAtom';
 
 function MainContainer() {
   const [cartData, setCartData] = useRecoilState(cartState);
-
+  const authCheck = useRecoilValue(authCheckerAtom);
   const productData : IProduct[] = ProductData;
 
   const addInCart = (item : IProduct) => {
@@ -28,8 +29,6 @@ function MainContainer() {
       ]);
     }
   };
-  useEffect(() => {
-  }, []);
 
   return (
     <Container>

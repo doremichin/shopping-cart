@@ -15,5 +15,6 @@ export const authDataAtom = atom<IAuthData>({
     googleId: '',
     imageUrl: '',
     name: '',
+    cart: [],
   },
 });

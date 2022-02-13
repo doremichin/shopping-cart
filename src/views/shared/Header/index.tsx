@@ -59,7 +59,7 @@ function Header() {
             }
             <Button color="inherit" onClick={() => handleNavigator('/')}>Home</Button>
             <Button color="inherit" onClick={() => handleNavigator('/cart')}>
-              <Badge badgeContent={qtyInCart} color="secondary">
+              <Badge badgeContent={qtyInCart} color="primary">
                 <ShoppingCartIcon color="action" />
               </Badge>
             </Button>

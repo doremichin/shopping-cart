@@ -13,6 +13,7 @@ function SignIn() {
     const profile = res.profileObj;
     setAuthCheck(true);
     setAuthData(profile);
+    sessionStorage.setItem('profile', JSON.stringify(profile));
   };
   const onFailure = (err :any) => {
     throw Error(err);

@@ -14,7 +14,7 @@ function CartContainer() {
     const newData = cartData.filter((item) => item.id !== id);
     setCartData(newData);
   };
-
+  console.log('cartdata', cartData);
   return (
     <Container>
       <CartList data={cartData}>
