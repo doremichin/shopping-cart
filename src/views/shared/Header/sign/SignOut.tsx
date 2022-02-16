@@ -23,7 +23,6 @@ function SignOut() {
   });
   return (
     <Button color="inherit" onClick={signOut}>Logout</Button>
-
   );
 }
 
