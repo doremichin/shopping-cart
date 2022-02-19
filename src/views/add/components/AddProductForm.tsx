@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { defaultInput } from '../../../style/ElementDefaultStyle';
+import { uploadImageToStorage } from '../../../firebase/storage';
 
 type FormInputs = {
     title: string
@@ -12,19 +13,33 @@ type FormInputs = {
 };
 function AddProductForm() {
   const {
-    register, handleSubmit, watch, formState: { errors },
+    register, handleSubmit, watch, formState: { errors }, setValue,
   } = useForm<FormInputs>();
   const onSubmit = (data : FormInputs) => console.log(data);
+  const [imageUrl, setImageUrl] = useState('');
 
-  const imageUploadStorage = () => {
+  const imageUploadStorage = async (e : React.ChangeEvent<HTMLInputElement>) => {
     console.log('이미지 추가');
+    const file = e?.target?.files?.[0];
+    const url = await uploadImageToStorage(file);
+    setValue('thumbnail', url);
+    setImageUrl(url);
   };
-
+  const handleImage = () => {
+    if (imageUrl.length === 0) {
+      return null;
+    }
+    return <img src={imageUrl} alt="" />;
+  };
+  console.log(imageUrl);
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Title>상품등록</Title>
       <Left>
         <ImageUploadLabel htmlFor="product-image-upload" className="image-upload-label">
+          <Image>
+            {handleImage()}
+          </Image>
           <p>+</p>
           <p className="in-label">클릭해서 이미지를 등록해 주세요.</p>
         </ImageUploadLabel>
@@ -59,7 +74,7 @@ const Form = styled.form`
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  
+
 `;
 const Title = styled.h1`
   width: 100%;
@@ -76,7 +91,7 @@ const Right = styled.div`
   flex-direction: column;
 `;
 const ButtonSubmit = styled.button`
-  
+
 `;
 
 const InputFormContents = styled(defaultInput)`
@@ -93,6 +108,20 @@ const Label = styled.label`
   border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
+`;
+const Image = styled.div`
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img{
+    width: 100%;
+  }
 `;
 const ImageUploadLabel = styled.label`
   position: relative;
@@ -113,9 +142,6 @@ const ImageUploadLabel = styled.label`
     position: absolute;
     bottom: 100px;
     font-size: 15px;
-  }
-  &:hover{
-    opacity: 0.5;
   }
 `;
 
