@@ -12,6 +12,7 @@ export const getProductsFirebase = async () => {
   querySnapshot.forEach((document) => {
     const docItem : any = {
       id: document.id,
+      qty: 1,
       ...document.data(),
     };
     result.push(docItem);
