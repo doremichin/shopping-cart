@@ -67,7 +67,7 @@ function AddProductForm() {
         </Label>
         <Label>
           선호도 :
-          <InputFormContents {...register('rating', { required: true, valueAsNumber: true })} type="number" min="0" max="5" className="onlyNumber" placeholder="0 ~ 5 사이 값을 입력해 주세요." />
+          <InputFormContents {...register('rating', { required: true, valueAsNumber: true })} type="number" min="0" max="5" step="0.1" className="onlyNumber" placeholder="0 ~ 5 사이 값을 입력해 주세요." />
         </Label>
         <Label>
           이미지 주소 :
