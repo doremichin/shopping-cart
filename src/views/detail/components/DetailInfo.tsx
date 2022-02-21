@@ -13,7 +13,7 @@ function DetailInfo({ data } : Props) {
       <Product>
         <Thumb>
           <Image>
-            <img src={data.thumb} alt="" />
+            <img src={data.thumbnail} alt="" />
           </Image>
         </Thumb>
         <Desc>

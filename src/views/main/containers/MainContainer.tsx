@@ -1,20 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
-import { ProductData } from '../../../ProductData';
 import { IProduct } from '../../../interfaces/interface.Product';
 import ProductList from '../components/ProductList';
 import ProductItem from '../components/ProductItem';
 import { cartState } from '../../../atoms/cartAtom';
-import { authCheckerAtom } from '../../../atoms/authAtom';
 import { getProductsFirebase } from '../../../firebase/query';
 
 function MainContainer() {
   const [cartData, setCartData] = useRecoilState(cartState);
-  const authCheck = useRecoilValue(authCheckerAtom);
-  const productData : IProduct[] = ProductData;
+  const [products, setProducts] = useState<any>([]);
+
   const addInCart = (item : IProduct) => {
     const { id } = item;
     const index = cartData.findIndex((data) => data.id === id);
@@ -24,13 +22,14 @@ function MainContainer() {
         ...cartData,
         {
           ...item,
-          qty: 1,
         },
       ]);
     }
   };
+
   const getProducts = async () => {
-    await getProductsFirebase();
+    const result = await getProductsFirebase();
+    setProducts(result);
   };
 
   useEffect(() => {
@@ -39,7 +38,7 @@ function MainContainer() {
 
   return (
     <Container>
-      <ProductList data={productData}>
+      <ProductList data={products}>
         {(item, index) => <ProductItem item={item} key={item.id || index} addInCart={addInCart} />}
       </ProductList>
     </Container>

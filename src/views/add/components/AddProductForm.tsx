@@ -2,24 +2,31 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
+import { useNavigate } from 'react-router-dom';
+
 import { defaultInput } from '../../../style/ElementDefaultStyle';
 import { uploadImageToStorage } from '../../../firebase/storage';
+import { setProductsFirebase } from '../../../firebase/query';
 
-type FormInputs = {
+export type FormInputs = {
     title: string
     price: number
     stock : number
     thumbnail : string
+    rating : number
 };
 function AddProductForm() {
+  const navigate = useNavigate();
   const {
     register, handleSubmit, watch, formState: { errors }, setValue,
   } = useForm<FormInputs>();
-  const onSubmit = (data : FormInputs) => console.log(data);
+  const onSubmit = async (data : FormInputs) => {
+    await setProductsFirebase(data);
+    navigate('/');
+  };
   const [imageUrl, setImageUrl] = useState('');
 
   const imageUploadStorage = async (e : React.ChangeEvent<HTMLInputElement>) => {
-    console.log('이미지 추가');
     const file = e?.target?.files?.[0];
     const url = await uploadImageToStorage(file);
     setValue('thumbnail', url);
@@ -31,7 +38,6 @@ function AddProductForm() {
     }
     return <img src={imageUrl} alt="" />;
   };
-  console.log(imageUrl);
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Title>상품등록</Title>
@@ -58,6 +64,10 @@ function AddProductForm() {
         <Label>
           재고 :
           <InputFormContents {...register('stock', { required: true, valueAsNumber: true })} type="number" min="0" className="onlyNumber" />
+        </Label>
+        <Label>
+          선호도 :
+          <InputFormContents {...register('rating', { required: true, valueAsNumber: true })} type="number" min="0" max="5" step="0.1" className="onlyNumber" placeholder="0 ~ 5 사이 값을 입력해 주세요." />
         </Label>
         <Label>
           이미지 주소 :

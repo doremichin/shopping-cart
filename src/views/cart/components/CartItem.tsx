@@ -18,7 +18,7 @@ function CartItem({ item, deleteInCart } : Props) {
         <AiOutlineDelete />
       </Cancel>
       <Thumb>
-        <img src={item.thumb} alt="" />
+        <img src={item.thumbnail} alt="" />
       </Thumb>
       <Title>
         {item.title}

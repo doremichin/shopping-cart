@@ -2,7 +2,8 @@ export interface IProduct {
     id : number
     title : string
     price : number
-    thumb : string
-    qty : number
+    thumbnail : string
+    stock : number
     rating : number
+    qty : number
 }

@@ -24,7 +24,7 @@ function ProductItem({ item, addInCart } : Props) {
       <Container>
         <Thumb onClick={() => navigate(`/detail/${item.id}`)}>
           <Image>
-            <img src={item.thumb} alt="" />
+            <img src={item.thumbnail} alt="" />
           </Image>
         </Thumb>
         {/* <Rating name="read-only" value={value} readOnly precision={0.5}/> */}
