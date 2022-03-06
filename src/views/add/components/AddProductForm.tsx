@@ -4,9 +4,10 @@ import styled from 'styled-components';
 
 import { useNavigate } from 'react-router-dom';
 
-import { defaultInput } from '../../../style/ElementDefaultStyle';
 import { uploadImageToStorage } from '../../../firebase/storage';
 import { setProductsFirebase } from '../../../firebase/query';
+import ImageUploader from './ImageUploader';
+import { defaultInput } from '../../../style/ElementDefaultStyle';
 
 export type FormInputs = {
     title: string
@@ -17,14 +18,15 @@ export type FormInputs = {
 };
 function AddProductForm() {
   const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState('');
   const {
     register, handleSubmit, watch, formState: { errors }, setValue,
   } = useForm<FormInputs>();
+
   const onSubmit = async (data : FormInputs) => {
     await setProductsFirebase(data);
     navigate('/');
   };
-  const [imageUrl, setImageUrl] = useState('');
 
   const imageUploadStorage = async (e : React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files?.[0];
@@ -38,19 +40,12 @@ function AddProductForm() {
     }
     return <img src={imageUrl} alt="" />;
   };
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Title>상품등록</Title>
       <Left>
-        <ImageUploadLabel htmlFor="product-image-upload" className="image-upload-label">
-          <Image>
-            {handleImage()}
-          </Image>
-          <p>+</p>
-          <p className="in-label">클릭해서 이미지를 등록해 주세요.</p>
-        </ImageUploadLabel>
-
-        <ImageUploadInput type="file" accept="image/*" onChange={imageUploadStorage} id="product-image-upload" />
+        <ImageUploader handleImage={handleImage} imageUploadStorage={imageUploadStorage} />
       </Left>
       <Right>
         <Label>
@@ -118,44 +113,5 @@ const Label = styled.label`
   border-bottom: 1px solid #eee;
   display: flex;
   align-items: center;
-`;
-const Image = styled.div`
-  position: absolute;
-  z-index: 1000;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  img{
-    width: 100%;
-  }
-`;
-const ImageUploadLabel = styled.label`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  width: 300px;
-  height: 300px;
-  background-color: #eee;
-  cursor: pointer;
-  transition: 0.3s;
-  &.image-upload-label{
-    font-size: 30px;
-  }
-  & .in-label {
-    position: absolute;
-    bottom: 100px;
-    font-size: 15px;
-  }
-`;
-
-const ImageUploadInput = styled.input`
-  display: none;
 `;
 export default AddProductForm;
