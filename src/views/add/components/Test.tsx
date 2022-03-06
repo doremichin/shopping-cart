@@ -1,6 +1,6 @@
 import React from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import styled from 'styled-components';
-import { UseFormRegister } from 'react-hook-form/dist/types/form';
 
 interface Props {
     register : UseFormRegister<any>
